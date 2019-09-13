@@ -2,10 +2,24 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css"
+            
+        />
+        <link rel="stylesheet" href="index.css">
         <title>foreverNote</title>
     </head>
 
     <body>
+        <div id="header">
+                <h1>foreverNote</h1>
+                <p>Welcome to foreverNote. It saves every 10s.</p>
+        </div>
+        <div id="note" contenteditable="true"></div>
+        <button onclick="saveNote()">Save</button>
+        <button onclick="clearNote()">Clear</button>
+
         <script src="https://unpkg.com/filer/dist/filer.min.js"></script>        <!-- This is a comment -->
         <script>
             const fs = new Filer.FileSystem();
@@ -15,17 +29,41 @@
                     var contents = "Welcome to my notepad!";
                     if(err){
                         console.log('Error in this bitch');
+                        throw err;
                     }
                     if(data){
-                        contents = data;
+                        document.querySelector('#note').innerHTML = data;
                         console.log(data);
                         
                     }
                 })
             });
+
+            window.setInterval(callback10Secs, 10000);
+
+            function callback10Secs(){
+                fs.writeFile('/note', document.querySelector('#note').innerHTML, 'utf8', function (err) {
+                if (err) throw err;  
+                    }); 
+            }
+
+            function saveNote() {
+                fs.writeFile('/note', document.querySelector('#note').innerHTML, 'utf8', function (err) {
+                if (err) throw err;  
+                    }); 
+            }
+            function clearNote() {
+                document.querySelector('#note').innerHTML = ""
+            }
         </script>
-        <div id="note" contenteditable="true"></div>
         
-        <h1>Hello World!</h1>
+        
+        
+        
+        
+        
+        
+
+        
     </body>
 </html>
