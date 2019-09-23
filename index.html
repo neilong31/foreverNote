@@ -24,6 +24,7 @@
                 fs.readFile('/note', 'utf8', function(err, data) {
                     var contents = "Welcome to my notepad!";
                     if(err){
+                        document.querySelector('#note').innerHTML = contents;
                         console.log('Error in this bitch');
                         throw err;
                     }
