@@ -15,6 +15,8 @@
         <div id="note" contenteditable="true"></div>
         <button onclick="saveNote()">Save</button>
         <button onclick="clearNote()">Clear</button>
+        <input id="words" type="text" value="" size="6" style="float: right;">
+        <button  onClick="count_words()" style="float: right;" >Count words</button>
 
         <script src="https://unpkg.com/filer/dist/filer.min.js"></script>        <!-- This is a comment -->
         <script>
@@ -51,6 +53,17 @@
             function clearNote() {
                 document.querySelector('#note').innerHTML = ""
             }
+
+            function count_words () {
+        str1 = document.querySelector("#note").innerHTML;
+        //exclude  start and end white-space
+        str1 = str1.replace(/(^\s*)|(\s*$)/gi, "");
+        //convert 2 or more spaces to 1
+        str1 = str1.replace(/[ ]{2,}/gi, " ");
+        // exclude newline with a start spacing
+        str1 = str1.replace(/\n /, "\n");
+        document.getElementById("words").value = str1.split(' ').length;
+    }
         </script>
         
         
